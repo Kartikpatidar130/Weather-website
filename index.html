@@ -1,0 +1,1429 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+    <link rel="icon" type="image/x-icon" href="https://weather-website.s3.eu-north-1.amazonaws.com/images/favicon-32x32.png">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@300..700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap"
+        rel="stylesheet">
+    <style>
+        input[type="search"]::-webkit-search-decoration,
+        input[type="search"]::-webkit-search-cancel-button,
+        input[type="search"]::-webkit-search-results-button,
+        input[type="search"]::-webkit-search-results-decoration {
+            display: none;
+        }
+
+        #md_scroller::-webkit-scrollbar {
+            width: 3px;
+            height: 5px;
+        }
+
+        #md_scroller::-webkit-scrollbar-thumb {
+            background-color: #716d6dbe;
+            border-radius: 6px;
+        }
+
+        #md_scroller::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        #sm_scroller::-webkit-scrollbar {
+            width: 0px;
+            height: 4px;
+        }
+
+        #sm_scroller::-webkit-scrollbar-thumb {
+            background-color: rgb(37 99 235);
+            border-radius: 6px;
+        }
+
+        #sm_scroller::-webkit-scrollbar-track {
+            background: rgb(112, 165, 230);
+        }
+
+
+        @media screen and (max-width:683px) {
+            #upper_gray {
+                height: 1225px;
+            }
+        }
+
+        @media screen and (min-width:500px) {
+            #speak_bar {
+                width: 450px;
+            }
+        }
+    </style>
+    <link href="output.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="">
+    <div id="preloader" class="h-[100vh] w-[100%] bg-white z-20 flex items-center justify-center"><img src="loder1.gif" alt="" class="h-[60px] md:h-[70px] lg:h-[80px]"></div>
+    <div id="main_container" class="sm:bg-sky-300 overflow-hidden relative hidden">
+        <div id="search_box" class="hidden h-[100vh] w-[100%] bg-gray-200 relative">
+            <div class="w-[98%] md:w-[90%]  overflow-hidden flex rounded-[50px] bg-white absolute top-[20px] left-[50%] translate-x-[-50%]" style="box-shadow:0px 0px 3px gray " id="main_search">
+                 <div id="back_btn" class=" w-[60px]  overflow-hidden flex items-center justify-center rounded-tl-[50px] rounded-bl-[50px]  text-4xl material-symbols-outlined">
+                 <span class="hover:bg-stone-300 px-2 py-0.5 rounded-[30px] cursor-pointer">chevron_left</span>
+                </div>
+                <input id="search_change" autocomplete="off" class="w-[92%] bg-white 
+                 placeholder-gray px-2 text-lg outline-none" type="search"
+                    placeholder="Search" spellcheck="false" >
+
+                <div id="mic" class="w-[60px] flex items-center justify-start rounded-tr-[50px] rounded-br-[50px]"><span
+                        class="hover:bg-stone-300 material-symbols-outlined rounded-[30px] px-4 py-2.5 cursor-pointer">mic</span>
+                </div>
+                <div id="close"
+                    class="hidden text-[22px] w-[60px] items-center justify-start rounded-tr-[50px] rounded-br-[50px]">
+                    <span class="hover:bg-stone-300 rounded-[30px] px-4 py-2.5 material-symbols-outlined cursor-pointer">close</span>
+                </div>
+            </div>
+            <div class="w-[100%] flex justify-center" id="sub_search">
+                <div class="new_upper h-[100vh] w-[100%] flex items-center justify-center">
+                    <div id="upper_text" class="text-gray-500 text-xl flex items-center justify-center ">
+                        Enter a
+                        location
+                        name</div>
+                    <img src="loder1.gif" alt="" class="hidden h-[60px] md:h-[70px] lg:h-[80px]" id="search_gif">
+                    <div class="hidden w-[90%] h-[280px] rounded-[8px] bg-white " style="box-shadow:0px 0px 3px black "
+                        id="speak_bar">
+                        <div class="text-xl text-black mx-auto w-[100px] text-center mt-[10px]"
+                            style="font-family:Rubik; font-weight:500;">
+                            Speak
+                        </div>
+                        <div class="animation_mic text-xl text-black mx-auto w-[60px] h-[60px] text-center mt-[15px] py-6 px-6 rounded-[40px]  bg-blue-600 flex items-center justify-center" id="speak_icon">
+                            <i class="fa-solid fa-microphone text-white "></i>
+                        </div>                     
+                        <div class="animation_new_mic text-xl border-[6px] border-solid mx-auto w-[60px] h-[60px] text-center mt-[15px] py-6 px-6 rounded-[40px] bg-white-600 flex items-center justify-center" id="new_speak_icon">
+                            <i class="fa-solid fa-microphone text-blue-500"></i>
+                        </div>
+                        <div class="my-[20px] h-[67.200px]">
+                            <div class="hidden flex-col items-center" id="try">
+                                <p class="text-md font-[600] kanit text-black">Didn't catch that.Try speaking again</p>
+                                <button
+                                    class="border-solid border-gray-400 border-2 mt-2 px-4 py-1 rounded-[10px] text-blue-600 font-[700]"
+                                    id="try_again">Try
+                                    again</button>
+                            </div>
+                            <div class="flex flex-col items-center text-3xl mt-[-25px]" id="words">...</div>
+                        </div>
+                        <div class="text-center text-[14px] ">English(United Kingdom)</div>
+                    </div>
+                </div>
+                <div id="main_list" class="hidden w-[98%] md:w-[90%] bg-white mt-[70px] rounded-[30px] p-6 mb-4"
+                    style="box-shadow:0px 0px 2px gray">
+                </div>
+            </div>
+        </div>
+        <div id="main_content"
+            class="pt-4 w-[100%] h-[625px] bg-blue-400 relative xl:rounded-t-[40px] xl:mt-10 xl:mx-auto xl:w-[90%] xl:h-[850px] ">
+            <div class="rounded-[20px] bg-blue-500 p-4 flex items-center justify-between sm:hidden">
+                <div>
+                    <h3 style="font-family:Ubuntu sans-serif; font-weight:900; font-size:1.4rem;"
+                        class="leading-[20px] text-blue-100">Welcome back</h3>
+                    <p class="text-[15px] text-white">Check out today's weather information</p>
+                </div>
+                <div class="flex items-center justify-between">
+                    <!-- <span class="hidden material-symbols-outlined mx-4">more_horiz</span> -->
+                    <img src="images/download.jpg" alt="profile image" class="hidden w-[50px] h-[50px] rounded-[20px]">
+                </div>
+            </div>
+
+            <img src="images/city-buildings-scene-sunrise-3067968-removebg-preview.png" alt
+                class="hidden sm:block w-[40%] h-[70%] absolute bottom-[27px] right-[-20px] xl:w-[28%] xl:h-[70%] xl:bottom-[-87px] xl:left-[-30px]">
+
+            <div class="mt-[20px] w-[100%] h-[50%] sm:w-[80%] sm:h-[80%] xl:w-[25%] xl:h-[40%] sm:mt-[35px] float-left">
+                <div>
+                    <div class="flex items-center justify-between">
+                        <span id="search_btn"
+                            class="material-symbols-outlined rounded-[5px] bg-cyan-100 text-blue-500 text-[22px] font-[700] px-1.5 py-0.5 mx-[20px] cursor-pointer hover:bg-cyan-200">search
+                        </span>
+                        <div class="flex items-center justify-around mx-[20px]">
+                            <span class="text-white font-[700]">F<sup>o </sup></span>
+                            <label class="switch">
+                                <input type="checkbox" checked id="mycheck">
+                                <span class="slider"></span>
+                            </label>
+                            <span class="text-white font-[700]">C<sup>o </sup></span>
+                        </div>
+                    </div>
+                    <div class="my-8 text-white">
+                        <div class="flex items-center justify-evenly">
+                            <div class="flex items-center justify-evenly"><span
+                                    class="material-symbols-outlined">near_me</span>
+                                <p class="text-md"><span class="places font-[700]">New Delhi</span></p>
+                            </div>
+
+                        </div>
+                        <div class="flex items-center justify-evenly mt-1">
+                            <div class="text-sm">
+                                <p class="">Today , <span class="date"></span> <span class="day"></span></p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="flex items-end justify-center ">
+                        <div><img id="day_update" src="" class="w-[40px] h-[40px] mr-2" alt=""></div>
+                        <div class="text-[55px] text-white xl:text-[50px] flex items-start">
+                            <span class="today_temp leading-none"></span><sup class="text-lg align-top">o</sup><span
+                                class="font-[700] text-lg change">C</span>
+                        </div>
+
+                    </div>
+                    <div class="mt-2 flex flex-col items-center justify-center text-white text-xl sm:text-xl ">
+                        <div class="flex items-center justify-center pr-4">
+                            <span class="material-symbols-outlined text-[17px] mr-1 ">light_mode</span><span
+                                id="today_condition" class="text-[15px]"></span>
+                        </div>
+                        <div class=" flex items-center h-[22px] justify-center">
+                            <span class="text-[15px] mr-1 leading-none">Feels like : </span><span
+                                class="text-[15px] feels_like"> </span><sup class="text-sm">o</sup><span
+                                class="font-[700] text-[10px] change"> C</span>
+                        </div>
+
+                    </div>
+                    <!-- <div
+                        class="w-[300px] mx-auto flex items-center justify-center text-white text-xl sm:text-2xl  border-solid border-black border-2">
+                       
+                    </div> -->
+                </div>
+            </div>
+            <div class="hidden sm:block w-[100%] xl:block xl:w-[75%]  rounded-[40px] p-6 float-right bg-sky-100"
+                style="box-shadow:0px 0px 10px rgba(128, 128, 128, 0.45);">
+                <div class=" flex items-center justify-between ">
+                    <div>
+                        <h3 style="font-family:Ubuntu sans-serif; font-weight:900; font-size:1.4rem;"
+                            class="leading-[20px]">Welcome back</h3>
+                        <p class="text-[15px] ">Check out today's weather information</p>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="hidden material-symbols-outlined mx-4">more_horiz</span>
+                        <img src="images/download.jpg" alt="profile image"
+                            class="hidden w-[50px] h-[50px] rounded-[20px]">
+                    </div>
+                </div>
+                <div class="w-[100%] h-[291.5px] mx-auto rounded-[20px] my-4 p-4 bg-white"
+                    style="box-shadow:0px 0px 20px rgba(128, 128, 128, 0.45);">
+                    <div class=" flex items-center justify-between px-4  h-[10%] mb-2 ">
+                        <div class="text-[18px] "
+                            style="font-family: Kanit, sans-serif; font-weight:400; font-style: normal;">
+                            <h2>Upcoming hours : <span id="days" class="text-[18px] text-blue-500">Today</span></h2>
+                        </div>
+                        <div class=" flex items-center justify-center">
+                            <button
+                                class="next-btn flex items-center bg-neutral-200 px-1 rounded-[5px] text-[15px] hover:bg-sky-100">
+                                <p class="next-para ">Next days</p>
+                                <span class="material-symbols-outlined">chevron_right</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-center relative h-[226.05px] w-[100%] ">
+
+                        <button
+                            class="btn-color left-btn h-10 rounded-[20px] p-2 flex items-center justify-center absolute left-[4px] bg-stone-200"
+                            onclick="leftscroll()"><span
+                                class="material-symbols-outlined">arrow_left_alt</span></button>
+
+                        <div class="active today scroller overflow-scroll flex h-[100%] w-[90%]" id="md_scroller">
+                            <div class="h-[100%] min-w-[150px] border-solid border-blue border-2  text-black
+                              flex flex-col items-center justify-center ">
+                                <p class="font-[700] update_time">01:00</p>
+                                <p class="text-xl "><span class="update_temp">22</span> <sup>o</sup><span
+                                        class="text-sm font-[600] change">C</span> </p>
+                                <div class="flex items-center justify-center text-blue-500 font-[500] perc"><span
+                                        class="invisible">60%</span></div>
+                                <img src="" alt="cloudy" class="h-[60px] w-[60px] m-2 update_img">
+                                <div class=" flex item-center justify-center flex-col">
+                                    <span class="update_text text-[15px]"></span>
+                                    <p class="font-[500] text-center"></p>
+                                </div>
+                            </div>
+                            <div class="h-[100%] min-w-[150px] border-solid border-blue border-2 text-black
+                              flex flex-col items-center justify-center ">
+                                <p class="font-[700] update_time">01:00</p>
+                                <p class="text-xl "><span class="update_temp">22</span> <sup>o</sup><span
+                                        class="text-sm font-[600] change">C</span> </p>
+                                <div class="flex items-center justify-center text-blue-500 font-[500] perc"><span
+                                        class="invisible">60%</span></div>
+                                <img src="" alt="cloudy" class="h-[60px] w-[60px] m-2 update_img">
+                                <div class=" flex item-center justify-center flex-col">
+                                    <span class="update_text text-[15px]"></span>
+                                    <p class="font-[500] text-center"></p>
+                                </div>
+                            </div>
+                            <div class="h-[100%] min-w-[150px] border-solid border-blue border-2 text-black
+                            flex flex-col items-center justify-center ">
+                                <p class="font-[700] update_time">01:00</p>
+                                <p class="text-xl "><span class="update_temp">22</span> <sup>o</sup><span
+                                        class="text-sm font-[600] change">C</span> </p>
+                                <div class="flex items-center justify-center text-blue-500 font-[500] perc"><span
+                                        class="invisible">60%</span></div>
+                                <img src="" alt="cloudy" class="h-[60px] w-[60px] m-2 update_img">
+                                <div class=" flex item-center justify-center flex-col">
+                                    <span class="update_text text-[15px]"></span>
+                                    <p class="font-[500] text-center"></p>
+                                </div>
+                            </div>
+                            <div class="h-[100%] min-w-[150px] border-solid border-blue border-2 text-black
+                            flex flex-col items-center justify-center ">
+                                <p class="font-[700] update_time">01:00</p>
+                                <p class="text-xl "><span class="update_temp">22</span> <sup>o</sup><span
+                                        class="text-sm font-[600] change">C</span> </p>
+                                <div class="flex items-center justify-center text-blue-500 font-[500] perc"><span
+                                        class="invisible">60%</span></div>
+                                <img src="" alt="cloudy" class="h-[60px] w-[60px] m-2 update_img">
+                                <div class=" flex item-center justify-center flex-col">
+                                    <span class="update_text text-[15px]"></span>
+                                    <p class="font-[500] text-center"></p>
+                                </div>
+                            </div>
+                            <div class="h-[100%] min-w-[150px] border-solid border-blue border-2 text-black
+                            flex flex-col items-center justify-center ">
+                                <p class="font-[700] update_time">01:00</p>
+                                <p class="text-xl "><span class="update_temp">22</span> <sup>o</sup><span
+                                        class="text-sm font-[600] change">C</span> </p>
+                                <div class="flex items-center justify-center text-blue-500 font-[500]  perc"><span
+                                        class="invisible">60%</span></div>
+                                <img src="" alt="cloudy" class="h-[60px] w-[60px] m-2 update_img">
+                                <div class=" flex item-center justify-center flex-col">
+                                    <span class="update_text text-[15px]"></span>
+                                    <p class="font-[500] text-center"></p>
+                                </div>
+                            </div>
+                            <div class="h-[100%] min-w-[150px] border-solid border-blue border-2 text-black
+                            flex flex-col items-center justify-center ">
+                                <p class="font-[700] update_time">01:00</p>
+                                <p class="text-xl "><span class="update_temp">22</span> <sup>o</sup><span
+                                        class="text-sm font-[600] change">C</span> </p>
+                                <div class="flex items-center justify-center text-blue-500 font-[500] perc"><span
+                                        class="invisible">60%</span></div>
+                                <img src="" alt="cloudy" class="h-[60px] w-[60px] m-2 update_img">
+                                <div class=" flex item-center justify-center flex-col">
+                                    <span class="update_text text-[15px]"></span>
+                                    <p class="font-[500] text-center"></p>
+                                </div>
+                            </div>
+                            <div class="h-[100%] min-w-[150px] border-solid border-blue border-2 text-black
+                            flex flex-col items-center justify-center ">
+                                <p class="font-[700] update_time">01:00</p>
+                                <p class="text-xl "><span class="update_temp">22</span> <sup>o</sup><span
+                                        class="text-sm font-[600] change">C</span> </p>
+                                <div class="flex items-center justify-center text-blue-500 font-[500] perc"><span
+                                        class="invisible">60%</span></div>
+                                <img src="" alt="cloudy" class="h-[60px] w-[60px] m-2 update_img">
+                                <div class=" flex item-center justify-center flex-col">
+                                    <span class="update_text text-[15px]"></span>
+                                    <p class="font-[500] text-center"></p>
+                                </div>
+                            </div>
+                            <div class="h-[100%] min-w-[150px] border-solid border-blue border-2 text-black
+                            flex flex-col items-center justify-center ">
+                                <p class="font-[700] update_time">01:00</p>
+                                <p class="text-xl "><span class="update_temp">22</span> <sup>o</sup><span
+                                        class="text-sm font-[600] change">C</span> </p>
+                                <div class="flex items-center justify-center text-blue-500 font-[500] perc"><span
+                                        class="invisible">60%</span></div>
+                                <img src="" alt="cloudy" class="h-[60px] w-[60px] m-2 update_img">
+                                <div class=" flex item-center justify-center flex-col">
+                                    <span class="update_text text-[15px]"></span>
+                                    <p class="font-[500] text-center"></p>
+                                </div>
+                            </div>
+                            <div class="h-[100%] min-w-[150px] border-solid border-blue border-2 text-black
+                            flex flex-col items-center justify-center ">
+                                <p class="font-[700] update_time">01:00</p>
+                                <p class="text-xl "><span class="update_temp">22</span> <sup>o</sup><span
+                                        class="text-sm font-[600] change">C</span> </p>
+                                <div class="flex items-center justify-center text-blue-500 font-[500] perc"><span
+                                        class="invisible">60%</span></div>
+                                <img src="" alt="cloudy" class="h-[60px] w-[60px] m-2 update_img">
+                                <div class=" flex item-center justify-center flex-col">
+                                    <span class="update_text text-[15px]"></span>
+                                    <p class="font-[500] text-center"></p>
+                                </div>
+                            </div>
+                            <div class="h-[100%] min-w-[150px] border-solid border-blue border-2 text-black
+                            flex flex-col items-center justify-center ">
+                                <p class="font-[700] update_time">01:00</p>
+                                <p class="text-xl "><span class="update_temp">22</span> <sup>o</sup><span
+                                        class="text-sm font-[600] change">C</span> </p>
+                                <div class="flex items-center justify-center text-blue-500 font-[500] perc"><span
+                                        class="invisible">60%</span></div>
+                                <img src="" alt="cloudy" class="h-[60px] w-[60px] m-2 update_img">
+                                <div class=" flex item-center justify-center flex-col">
+                                    <span class="update_text text-[15px]"></span>
+                                    <p class="font-[500] text-center"></p>
+                                </div>
+                            </div>
+                            <div class="h-[100%] min-w-[150px] border-solid border-blue border-2 text-black
+                            flex flex-col items-center justify-center ">
+                                <p class="font-[700] update_time">01:00</p>
+                                <p class="text-xl "><span class="update_temp">22</span> <sup>o</sup><span
+                                        class="text-sm font-[600]  change">C</span> </p>
+                                <div class="flex items-center justify-center text-blue-500 font-[500] perc"><span
+                                        class="invisible">60%</span></div>
+                                <img src="" alt="cloudy" class="h-[60px] w-[60px] m-2 update_img">
+                                <div class=" flex item-center justify-center flex-col">
+                                    <span class="update_text text-[15px]"></span>
+                                    <p class="font-[500] text-center"></p>
+                                </div>
+                            </div>
+                            <div class="h-[100%] min-w-[150px] border-solid border-blue border-2 text-black
+                            flex flex-col items-center justify-center ">
+                                <p class="font-[700] update_time">01:00</p>
+                                <p class="text-xl "><span class="update_temp">22</span> <sup>o</sup><span
+                                        class="text-sm font-[600] change">C</span> </p>
+                                <div class="flex items-center justify-center text-blue-500 font-[500] perc"><span
+                                        class="invisible">60%</span></div>
+                                <img src="" alt="cloudy" class="h-[60px] w-[60px] m-2 update_img">
+                                <div class=" flex item-center justify-center flex-col">
+                                    <span class="update_text text-[15px]"></span>
+                                    <p class="font-[500] text-center"></p>
+                                </div>
+                            </div>
+                            <div class="h-[100%] min-w-[150px] border-solid border-blue border-2 text-black
+                            flex flex-col items-center justify-center ">
+                                <p class="font-[700] update_time">01:00</p>
+                                <p class="text-xl "><span class="update_temp">22</span> <sup>o</sup><span
+                                        class="text-sm font-[600] change">C</span> </p>
+                                <div class="flex items-center justify-center text-blue-500 font-[500] perc"><span
+                                        class="invisible">60%</span></div>
+                                <img src="" alt="cloudy" class="h-[60px] w-[60px] m-2 update_img">
+                                <div class=" flex item-center justify-center flex-col">
+                                    <span class="update_text text-[15px]"></span>
+                                    <p class="font-[500] text-center"></p>
+                                </div>
+                            </div>
+                            <div class="h-[100%] min-w-[150px] border-solid border-blue border-2 text-black
+                            flex flex-col items-center justify-center ">
+                                <p class="font-[700] update_time">01:00</p>
+                                <p class="text-xl "><span class="update_temp">22</span> <sup>o</sup><span
+                                        class="text-sm font-[600] change">C</span> </p>
+                                <div class="flex items-center justify-center text-blue-500 font-[500] perc"><span
+                                        class="invisible">60%</span></div>
+                                <img src="" alt="cloudy" class="h-[60px] w-[60px] m-2 update_img">
+                                <div class=" flex item-center justify-center flex-col">
+                                    <span class="update_text text-[15px]"></span>
+                                    <p class="font-[500] text-center"></p>
+                                </div>
+                            </div>
+                            <div class="h-[100%] min-w-[150px] border-solid border-blue border-2 text-black
+                            flex flex-col items-center justify-center ">
+                                <p class="font-[700] update_time">01:00</p>
+                                <p class="text-xl "><span class="update_temp">22</span> <sup>o</sup><span
+                                        class="text-sm font-[600] change">C</span> </p>
+                                <div class="flex items-center justify-center text-blue-500 font-[500] perc"><span
+                                        class="invisible">60%</span></div>
+                                <img src="" alt="cloudy" class="h-[60px] w-[60px] m-2 update_img">
+                                <div class=" flex item-center justify-center flex-col">
+                                    <span class="update_text text-[15px]"></span>
+                                    <p class="font-[500] text-center"></p>
+                                </div>
+                            </div>
+                            <div class="h-[100%] min-w-[150px] border-solid border-blue border-2 text-black
+                            flex flex-col items-center justify-center ">
+                                <p class="font-[700] update_time">01:00</p>
+                                <p class="text-xl "><span class="update_temp">22</span> <sup>o</sup><span
+                                        class="text-sm font-[600] change">C</span> </p>
+                                <div class="flex items-center justify-center text-blue-500 font-[500] perc"><span
+                                        class="invisible">60%</span></div>
+                                <img src="" alt="cloudy" class="h-[60px] w-[60px] m-2 update_img">
+                                <div class=" flex item-center justify-center flex-col">
+                                    <span class="update_text text-[15px]"></span>
+                                    <p class="font-[500] text-center"></p>
+                                </div>
+                            </div>
+                            <div class="h-[100%] min-w-[150px] border-solid border-blue border-2 text-black
+                            flex flex-col items-center justify-center ">
+                                <p class="font-[700] update_time">01:00</p>
+                                <p class="text-xl "><span class="update_temp">22</span> <sup>o</sup><span
+                                        class="text-sm font-[600] change">C</span> </p>
+                                <div class="flex items-center justify-center text-blue-500 font-[500] perc"><span
+                                        class="invisible">60%</span></div>
+                                <img src="" alt="cloudy" class="h-[60px] w-[60px] m-2 update_img">
+                                <div class=" flex item-center justify-center flex-col">
+                                    <span class="update_text text-[15px]"></span>
+                                    <p class="font-[500] text-center"></p>
+                                </div>
+                            </div>
+                            <div class="h-[100%] min-w-[150px] border-solid border-blue border-2 text-black
+                            flex flex-col items-center justify-center ">
+                                <p class="font-[700] update_time">01:00</p>
+                                <p class="text-xl "><span class="update_temp">22</span> <sup>o</sup><span
+                                        class="text-sm font-[600] change">C</span> </p>
+                                <div class="flex items-center justify-center text-blue-500 font-[500]  perc"><span
+                                        class="invisible">60%</span></div>
+                                <img src="" alt="cloudy" class="h-[60px] w-[60px] m-2 update_img">
+                                <div class=" flex item-center justify-center flex-col">
+                                    <span class="update_text text-[15px]"></span>
+                                    <p class="font-[500] text-center"></p>
+                                </div>
+                            </div>
+                            <div class="h-[100%] min-w-[150px] border-solid border-blue border-2 text-black
+                            flex flex-col items-center justify-center ">
+                                <p class="font-[700] update_time">01:00</p>
+                                <p class="text-xl "><span class="update_temp">22</span> <sup>o</sup><span
+                                        class="text-sm font-[600] change">C</span> </p>
+                                <div class="flex items-center justify-center text-blue-500 font-[500] perc"><span
+                                        class="invisible">60%</span></div>
+                                <img src="" alt="cloudy" class="h-[60px] w-[60px] m-2 update_img">
+                                <div class=" flex item-center justify-center flex-col">
+                                    <span class="update_text text-[15px]"></span>
+                                    <p class="font-[500] text-center"></p>
+                                </div>
+                            </div>
+                            <div class="h-[100%] min-w-[150px] border-solid border-blue border-2 text-black
+                            flex flex-col items-center justify-center ">
+                                <p class="font-[700] update_time">01:00</p>
+                                <p class="text-xl "><span class="update_temp">22</span> <sup>o</sup><span
+                                        class="text-sm font-[600] change">C</span> </p>
+                                <div class="flex items-center justify-center text-blue-500 font-[500] perc"><span
+                                        class="invisible">60%</span></div>
+                                <img src="" alt="cloudy" class="h-[60px] w-[60px] m-2 update_img">
+                                <div class=" flex item-center justify-center flex-col">
+                                    <span class="update_text text-[15px]"></span>
+                                    <p class="font-[500] text-center"></p>
+                                </div>
+                            </div>
+                            <div class="h-[100%] min-w-[150px] border-solid border-blue border-2 text-black
+                            flex flex-col items-center justify-center ">
+                                <p class="font-[700] update_time">01:00</p>
+                                <p class="text-xl "><span class="update_temp">22</span> <sup>o</sup><span
+                                        class="text-sm font-[600] change">C</span> </p>
+                                <div class="flex items-center justify-center text-blue-500 font-[500] perc"><span
+                                        class="invisible">60%</span></div>
+                                <img src="" alt="cloudy" class="h-[60px] w-[60px] m-2 update_img">
+                                <div class=" flex item-center justify-center flex-col">
+                                    <span class="update_text text-[15px]"></span>
+                                    <p class="font-[500] text-center"></p>
+                                </div>
+                            </div>
+                            <div class="h-[100%] min-w-[150px] border-solid border-blue border-2 text-black
+                            flex flex-col items-center justify-center ">
+                                <p class="font-[700] update_time">01:00</p>
+                                <p class="text-xl "><span class="update_temp">22</span> <sup>o</sup><span
+                                        class="text-sm font-[600] change">C</span> </p>
+                                <div class="flex items-center justify-center text-blue-500 font-[500] perc"><span
+                                        class="invisible">60%</span></div>
+                                <img src="" alt="cloudy" class="h-[60px] w-[60px] m-2 update_img">
+                                <div class=" flex item-center justify-center flex-col">
+                                    <span class="update_text text-[15px]"></span>
+                                    <p class="font-[500] text-center"></p>
+                                </div>
+                            </div>
+                            <div class="h-[100%] min-w-[150px] border-solid border-blue border-2 text-black
+                            flex flex-col items-center justify-center ">
+                                <p class="font-[700] update_time">01:00</p>
+                                <p class="text-xl "><span class="update_temp">22</span> <sup>o</sup><span
+                                        class="text-sm font-[600] change">C</span> </p>
+                                <div class="flex items-center justify-center text-blue-500 font-[500] perc"><span
+                                        class="invisible">60%</span></div>
+                                <img src="" alt="cloudy" class="h-[60px] w-[60px] m-2 update_img">
+                                <div class=" flex item-center justify-center flex-col">
+                                    <span class="update_text text-[15px]"></span>
+                                    <p class="font-[500] text-center"></p>
+                                </div>
+                            </div>
+                            <div class="h-[100%] min-w-[150px] border-solid border-blue border-2 text-black
+                            flex flex-col items-center justify-center ">
+                                <p class="font-[700] update_time">01:00</p>
+                                <p class="text-xl "><span class="update_temp">22</span> <sup>o</sup><span
+                                        class="text-sm font-[600] change">C</span> </p>
+                                <div class="flex items-center justify-center text-blue-500 font-[500] perc"><span
+                                        class="invisible">60%</span></div>
+                                <img src="" alt="cloudy" class="h-[60px] w-[60px] m-2 update_img">
+                                <div class=" flex item-center justify-center flex-col">
+                                    <span class="update_text text-[15px]"></span>
+                                    <p class="font-[500] text-center"></p>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="week scroller overflow-scroll h-[100%] w-[90%] hidden" id="md_scroller">
+                            <div class="h-[100%] min-w-[150px] border-solid border-blue border-2  text-black
+                              flex flex-col items-center justify-center hover:bg-sky-100 " id="div1">
+                                <p class="font-[700] text-md week_time"></p>
+                                <p class="text-xl "><span class="week_temp">22</span> <sup>o</sup><span
+                                        class="text-sm font-[600] change">C</span> </p>
+                                <div class="flex items-center justify-center text-blue-500 font-[500] week_perc"><span
+                                        class="invisible">60%</span></div>
+                                <img src="" alt="cloudy" class="h-[60px] w-[60px] m-2 week_img">
+                                <div class=" flex item-center justify-center flex-col">
+                                    <span class="week_text text-[15px]"></span>
+                                    <p class="font-[500] text-center"></p>
+                                </div>
+                            </div>
+                            <div class="h-[100%] min-w-[150px] border-solid border-blue border-2 text-black
+                              flex flex-col items-center justify-center hover:bg-sky-100 " id="div2">
+                                <p class="font-[700] text-md week_time"></p>
+                                <p class="text-xl "><span class="week_temp">22</span> <sup>o</sup><span
+                                        class="text-sm font-[600] change">C</span> </p>
+                                <div class="flex items-center justify-center text-blue-500 font-[500] week_perc"><span
+                                        class="invisible">60%</span></div>
+                                <img src="" alt="cloudy" class="h-[60px] w-[60px] m-2 week_img">
+                                <div class=" flex item-center justify-center flex-col">
+                                    <span class="week_text text-[15px]"></span>
+                                    <p class="font-[500] text-center"></p>
+                                </div>
+                            </div>
+                            <div class="h-[100%] min-w-[150px] border-solid border-blue border-2 text-black
+                              flex flex-col items-center justify-center hover:bg-sky-100 " id="div3">
+                                <p class="font-[700] text-md week_time"></p>
+                                <p class="text-xl "><span class="week_temp">22</span> <sup>o</sup><span
+                                        class="text-sm font-[600] change">C</span> </p>
+                                <div class="flex items-center justify-center text-blue-500 font-[500] week_perc"><span
+                                        class="invisible">60%</span></div>
+                                <img src="" alt="cloudy" class="h-[60px] w-[60px] m-2 week_img">
+                                <div class=" flex item-center justify-center flex-col">
+                                    <span class="week_text text-[15px]"></span>
+                                    <p class="font-[500] text-center"></p>
+                                </div>
+                            </div>
+                            <div class="h-[100%] min-w-[150px] border-solid border-blue border-2 text-black
+                              flex flex-col items-center justify-center hover:bg-sky-100 " id="div4">
+                                <p class="font-[700] text-md week_time"></p>
+                                <p class="text-xl "><span class="week_temp">22</span> <sup>o</sup><span
+                                        class="text-sm font-[600] change">C</span> </p>
+                                <div class="flex items-center justify-center text-blue-500 font-[500] week_perc"><span
+                                        class="invisible">60%</span></div>
+                                <img src="" alt="cloudy" class="h-[60px] w-[60px] m-2 week_img">
+                                <div class=" flex item-center justify-center flex-col">
+                                    <span class="week_text text-[15px]"></span>
+                                    <p class="font-[500] text-center"></p>
+                                </div>
+                            </div>
+                            <div class="h-[100%] min-w-[150px] border-solid border-blue border-2 text-black
+                              flex flex-col items-center justify-center hover:bg-sky-100 " id="div5">
+                                <p class="font-[700] text-md week_time"></p>
+                                <p class="text-xl "><span class="week_temp">22</span> <sup>o</sup><span
+                                        class="text-sm font-[600] change">C</span> </p>
+                                <div class="flex items-center justify-center text-blue-500 font-[500] week_perc "><span
+                                        class="invisible">60%</span></div>
+                                <img src="" alt="cloudy" class="h-[60px] w-[60px] m-2 week_img">
+                                <div class=" flex item-center justify-center flex-col">
+                                    <span class="week_text text-[15px]"></span>
+                                    <p class="font-[500] text-center"></p>
+                                </div>
+                            </div>
+                            <div class="h-[100%] min-w-[150px] border-solid border-blue border-2 text-black
+                              flex flex-col items-center justify-center hover:bg-sky-100 " id="div6">
+                                <p class="font-[700] text-md week_time"></p>
+                                <p class="text-xl "><span class="week_temp">22</span> <sup>o</sup><span
+                                        class="text-sm font-[600] change">C</span> </p>
+                                <div class="flex items-center justify-center text-blue-500 font-[500] week_perc"><span
+                                        class="invisible">60%</span></div>
+                                <img src="" alt="cloudy" class="h-[60px] w-[60px] m-2 week_img">
+                                <div class=" flex item-center justify-center flex-col">
+                                    <span class="week_text text-[15px]"></span>
+                                    <p class="font-[500] text-center"></p>
+                                </div>
+                            </div>
+                            <div class="h-[100%] min-w-[150px] border-solid border-blue border-2 text-black
+                              flex flex-col items-center justify-center hover:bg-sky-100 " id="div7">
+                                <p class="font-[700] text-md week_time"></p>
+                                <p class="text-xl "><span class="week_temp">22</span> <sup>o</sup><span
+                                        class="text-sm font-[600] change">C</span> </p>
+                                <div class="flex items-center justify-center text-blue-500 font-[500] week_perc"><span
+                                        class="invisible">60%</span></div>
+                                <img src="" alt="cloudy" class="h-[60px] w-[60px] m-2 week_img">
+                                <div class=" flex item-center justify-center flex-col">
+                                    <span class="week_text text-[15px]"></span>
+                                    <p class="font-[500] text-center"></p>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <button
+                            class=" btn-color right-btn h-10 rounded-[20px] p-2 flex items-center justify-center absolute right-[4px] bg-stone-200"
+                            onclick="rightscroll()"><span class="material-symbols-outlined">arrow_right_alt</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="w-[100%] ">
+                    <div class="">
+                        <h3 class="py-4 px-8 text-lg" style="font-family:Rubik; font-weight:500;">more details of
+                            today's weather</h3>
+                    </div>
+                    <div class="flex justify-center">
+                        <div class="w-[814px] xl:w-[900px] flex flex-wrap justify-center gap-4 ">
+                            <div class="flex p-8 justify-center items-center rounded-[30px] w-[200px] h-[250px] xl:w-[250px]  xl:h-[250px]  bg-white"
+                                style="box-shadow:0px 0px 10px rgba(128, 128, 128, 0.45);">
+                                <div>
+                                    <h1 class="text-center text-3xl xl:text-3xl"
+                                        style=" font-family: Teko, sans-serif;">
+                                        Humidity</h1>
+                                    <div class="flex items-center justify-center "><span
+                                            class="material-symbols-outlined text-4xl bg-blue-300 rounded-[5px] my-4">humidity_mid</span>
+                                    </div>
+                                    <p class="text-center text-xl"><span class="humidity"> </span><span
+                                            class="text-[15px] font-[500]"> %</span></p>
+                                </div>
+                            </div>
+                            <div class=" flex p-8 justify-center items-center rounded-[30px] w-[200px] h-[250px] xl:w-[250px]  xl:h-[250px]  bg-white"
+                                style="box-shadow:0px 0px 10px rgba(128, 128, 128, 0.45);">
+                                <div>
+                                    <h1 class="text-center text-3xl xl:text-3xl" text-center
+                                        style=" font-family: Teko, sans-serif;">
+                                        Wind</h1>
+                                    <div class="flex items-center justify-center "><span
+                                            class="material-symbols-outlined text-4xl bg-blue-300 rounded-[5px] my-4">air</span>
+                                    </div>
+                                    <p class="text-center text-xl"><span class="wind"> </span><span
+                                            class="text-[15px] font-[500]">
+                                            km/h</span></p>
+                                </div>
+                            </div>
+                            <div class="flex p-8 justify-center items-center rounded-[30px] w-[200px] h-[250px] xl:w-[250px]  xl:h-[250px] bg-white"
+                                style="box-shadow:0px 0px 10px rgba(128, 128, 128, 0.45);">
+                                <div>
+                                    <h1 class="text-center text-3xl xl:text-3xl" text-center
+                                        style=" font-family: Teko, sans-serif;">
+                                        Precipitation</h1>
+                                    <div class="flex items-center justify-center "><span
+                                            class="material-symbols-outlined text-4xl bg-blue-300 rounded-[5px] my-4">rainy</span>
+                                    </div>
+                                    <p class="text-center text-xl"><span class="precipitation"> </span> <span
+                                            class="text-[15px] font-[500]"> mm</span></p>
+                                </div>
+                            </div>
+                            <div class=" flex p-8 justify-center items-center rounded-[30px] w-[200px] h-[250px] xl:w-[250px]  xl:h-[250px] bg-white"
+                                style="box-shadow:0px 0px 10px rgba(128, 128, 128, 0.45);">
+                                <div>
+                                    <h1 class="text-center text-3xl xl:text-3xl" text-center
+                                        style=" font-family: Teko, sans-serif;">Uv
+                                        index</h1>
+                                    <div class="flex items-center justify-center "><span
+                                            class="material-symbols-outlined text-4xl bg-blue-300 rounded-[5px] my-4">wb_sunny</span>
+                                    </div>
+                                    <p class="text-center text-xl"><span class="uv_index"> </span><span
+                                            class="text-[15px] font-[500]">
+                                            medium</span></p>
+                                </div>
+                            </div>
+                            <div class=" flex p-8 justify-center items-center rounded-[30px] w-[200px] h-[250px] xl:w-[250px]  xl:h-[250px]   bg-white"
+                                style="box-shadow:0px 0px 10px rgba(128, 128, 128, 0.45);">
+                                <div>
+                                    <h1 class="text-center text-3xl xl:text-3xl" text-center
+                                        style=" font-family: Teko, sans-serif;">
+                                        Feels like</h1>
+                                    <div class="flex items-center justify-center "><span
+                                            class="material-symbols-outlined text-4xl bg-blue-300 rounded-[5px] my-4">thermometer
+                                        </span></div>
+                                    <p class="text-center text-xl"><span class="feel_like"></span><sup>o</sup><span
+                                            class="text-[15px] font-[500]"> C</span></p>
+                                </div>
+                            </div>
+                            <div class=" flex p-8 justify-center items-center rounded-[30px] w-[200px] h-[250px] xl:w-[250px]  xl:h-[250px]  bg-white"
+                                style="box-shadow:0px 0px 10px rgba(128, 128, 128, 0.45);">
+                                <div>
+                                    <h1 class="text-center text-3xl xl:text-3xl" text-center
+                                        style=" font-family: Teko, sans-serif;">
+                                        Dew</h1>
+                                    <div class="flex items-center justify-center "><span
+                                            class="material-symbols-outlined text-4xl bg-blue-300 rounded-[5px] my-4">beach_access
+                                        </span></div>
+                                    <p class="text-center text-xl"><span class="dew"> </span><sup>o</sup><span
+                                            class="text-[15px] font-[500]"> C</span></p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="w-[100%] bg-blue-400 float-right block sm:hidden">
+
+                <div class=" w-[100%] mt-6">
+                    <h3 class="px-4 py-2 text-lg text-white" style="font-family:Rubik; font-weight:500;">more details of
+                        today's weather</h3>
+                </div>
+
+                <div class="bg-blue-500 rounded-[40px] w-[100%] my-6 px-10 overflow-auto">
+                    <div
+                        class="bg-blue-400 w-[215px] text-white flex justify-start items-center px-4 py-1 font-[500] my-3 rounded-[15px]">
+                        <h3>Upcoming hours : <span class="text-sm" id="week_days">Today</span></h3>
+                    </div>
+                    <div class="today scroller overflow-scroll h-[100%] w-[100%] flex py-4" id="sm_scroller">
+                        <div class="h-[100%] min-w-[110px]  text-black
+                          flex flex-col items-center justify-center ">
+                            <p class="font-[300] text-white update1_time">01:00</p>
+                            <p class="text-xl text-white"><span class="update1_temp text-2xl">22</span>
+                                <sup>o</sup><span class="text-sm change font-[700]">C</span>
+                            </p>
+                            <div class="flex items-center justify-center text-sky-200 font-[700] perc1"><span
+                                    class="invisible text-sm">60%</span></div>
+                            <img src="images\2682826_bolt_light_moon_night_rain_icon.png" alt="cloudy"
+                                class="h-[50px] w-[50px] update1_img my-2">
+                            <div class=" flex item-center justify-center flex-col">
+                                <span
+                                    class="update1_text text-white text-[15px] w-[60px] text-center">partly-cloudy-day</span>
+                                <p class="font-[500] text-center"></p>
+                            </div>
+                        </div>
+                        <div class="h-[100%] min-w-[110px]  text-black
+                          flex flex-col items-center justify-center ">
+                            <p class="font-[300] text-white update1_time">01:00</p>
+                            <p class="text-xl text-white"><span class="update1_temp text-2xl">22</span>
+                                <sup>o</sup><span class="text-sm change font-[700]">C</span>
+                            </p>
+                            <div class="flex items-center justify-center text-sky-200 font-[700] perc1"><span
+                                    class="invisible text-sm">60%</span></div>
+                            <img src="images\2682826_bolt_light_moon_night_rain_icon.png" alt="cloudy"
+                                class="h-[50px] w-[50px] update1_img my-2">
+                            <div class=" flex item-center justify-center flex-col">
+                                <span
+                                    class="update1_text text-white text-[15px] w-[60px] text-center">partly-cloudy-day</span>
+                                <p class="font-[500] text-center"></p>
+                            </div>
+                        </div>
+                        <div class="h-[100%] min-w-[110px]  text-black
+                          flex flex-col items-center justify-center ">
+                            <p class="font-[300] text-white update1_time">01:00</p>
+                            <p class="text-xl text-white"><span class="update1_temp text-2xl">22</span>
+                                <sup>o</sup><span class="text-sm change font-[700]">C</span>
+                            </p>
+                            <div class="flex items-center justify-center text-sky-200 font-[700] perc1"><span
+                                    class="invisible text-sm">60%</span></div>
+                            <img src="images\2682826_bolt_light_moon_night_rain_icon.png" alt="cloudy"
+                                class="h-[50px] w-[50px] update1_img my-2">
+                            <div class=" flex item-center justify-center flex-col">
+                                <span
+                                    class="update1_text text-white text-[15px] w-[60px] text-center">partly-cloudy-day</span>
+                                <p class="font-[500] text-center"></p>
+                            </div>
+                        </div>
+                        <div class="h-[100%] min-w-[110px]  text-black
+                          flex flex-col items-center justify-center ">
+                            <p class="font-[300] text-white update1_time">01:00</p>
+                            <p class="text-xl text-white"><span class="update1_temp text-2xl">22</span>
+                                <sup>o</sup><span class="text-sm change font-[700]">C</span>
+                            </p>
+                            <div class="flex items-center justify-center text-sky-200 font-[700] perc1"><span
+                                    class="invisible text-sm">60%</span></div>
+                            <img src="images\2682826_bolt_light_moon_night_rain_icon.png" alt="cloudy"
+                                class="h-[50px] w-[50px] update1_img my-2">
+                            <div class=" flex item-center justify-center flex-col">
+                                <span
+                                    class="update1_text text-white text-[15px] w-[60px] text-center">partly-cloudy-day</span>
+                                <p class="font-[500] text-center"></p>
+                            </div>
+                        </div>
+                        <div class="h-[100%] min-w-[110px]  text-black
+                          flex flex-col items-center justify-center ">
+                            <p class="font-[300] text-white update1_time">01:00</p>
+                            <p class="text-xl text-white"><span class="update1_temp text-2xl">22</span>
+                                <sup>o</sup><span class="text-sm change font-[700]">C</span>
+                            </p>
+                            <div class="flex items-center justify-center text-sky-200 font-[700] perc1"><span
+                                    class="invisible text-sm">60%</span></div>
+                            <img src="images\2682826_bolt_light_moon_night_rain_icon.png" alt="cloudy"
+                                class="h-[50px] w-[50px] update1_img my-2">
+                            <div class=" flex item-center justify-center flex-col">
+                                <span
+                                    class="update1_text text-white text-[15px] w-[60px] text-center">partly-cloudy-day</span>
+                                <p class="font-[500] text-center"></p>
+                            </div>
+                        </div>
+                        <div class="h-[100%] min-w-[110px]  text-black
+                          flex flex-col items-center justify-center ">
+                            <p class="font-[300] text-white update1_time">01:00</p>
+                            <p class="text-xl text-white"><span class="update1_temp text-2xl">22</span>
+                                <sup>o</sup><span class="text-sm change font-[700]">C</span>
+                            </p>
+                            <div class="flex items-center justify-center text-sky-200 font-[700] perc1"><span
+                                    class="invisible text-sm">60%</span></div>
+                            <img src="images\2682826_bolt_light_moon_night_rain_icon.png" alt="cloudy"
+                                class="h-[50px] w-[50px] update1_img my-2">
+                            <div class=" flex item-center justify-center flex-col">
+                                <span
+                                    class="update1_text text-white text-[15px] w-[60px] text-center">partly-cloudy-day</span>
+                                <p class="font-[500] text-center"></p>
+                            </div>
+                        </div>
+                        <div class="h-[100%] min-w-[110px]  text-black
+                          flex flex-col items-center justify-center ">
+                            <p class="font-[300] text-white update1_time">01:00</p>
+                            <p class="text-xl text-white"><span class="update1_temp text-2xl">22</span>
+                                <sup>o</sup><span class="text-sm change font-[700]">C</span>
+                            </p>
+                            <div class="flex items-center justify-center text-sky-200 font-[700] perc1"><span
+                                    class="invisible text-sm">60%</span></div>
+                            <img src="images\2682826_bolt_light_moon_night_rain_icon.png" alt="cloudy"
+                                class="h-[50px] w-[50px] update1_img my-2">
+                            <div class=" flex item-center justify-center flex-col">
+                                <span
+                                    class="update1_text text-white text-[15px] w-[60px] text-center">partly-cloudy-day</span>
+                                <p class="font-[500] text-center"></p>
+                            </div>
+                        </div>
+                        <div class="h-[100%] min-w-[110px]  text-black
+                          flex flex-col items-center justify-center ">
+                            <p class="font-[300] text-white update1_time">01:00</p>
+                            <p class="text-xl text-white"><span class="update1_temp text-2xl">22</span>
+                                <sup>o</sup><span class="text-sm change font-[700]">C</span>
+                            </p>
+                            <div class="flex items-center justify-center text-sky-200 font-[700] perc1"><span
+                                    class="invisible text-sm">60%</span></div>
+                            <img src="images\2682826_bolt_light_moon_night_rain_icon.png" alt="cloudy"
+                                class="h-[50px] w-[50px] update1_img my-2">
+                            <div class=" flex item-center justify-center flex-col">
+                                <span
+                                    class="update1_text text-white text-[15px] w-[60px] text-center">partly-cloudy-day</span>
+                                <p class="font-[500] text-center"></p>
+                            </div>
+                        </div>
+                        <div class="h-[100%] min-w-[110px]  text-black
+                          flex flex-col items-center justify-center ">
+                            <p class="font-[300] text-white update1_time">01:00</p>
+                            <p class="text-xl text-white"><span class="update1_temp text-2xl">22</span>
+                                <sup>o</sup><span class="text-sm change font-[700]">C</span>
+                            </p>
+                            <div class="flex items-center justify-center text-sky-200 font-[700] perc1"><span
+                                    class="invisible text-sm">60%</span></div>
+                            <img src="images\2682826_bolt_light_moon_night_rain_icon.png" alt="cloudy"
+                                class="h-[50px] w-[50px] update1_img my-2">
+                            <div class=" flex item-center justify-center flex-col">
+                                <span
+                                    class="update1_text text-white text-[15px] w-[60px] text-center">partly-cloudy-day</span>
+                                <p class="font-[500] text-center"></p>
+                            </div>
+                        </div>
+                        <div class="h-[100%] min-w-[110px]  text-black
+                          flex flex-col items-center justify-center ">
+                            <p class="font-[300] text-white update1_time">01:00</p>
+                            <p class="text-xl text-white"><span class="update1_temp text-2xl">22</span>
+                                <sup>o</sup><span class="text-sm change font-[700]">C</span>
+                            </p>
+                            <div class="flex items-center justify-center text-sky-200 font-[700] perc1"><span
+                                    class="invisible text-sm">60%</span></div>
+                            <img src="images\2682826_bolt_light_moon_night_rain_icon.png" alt="cloudy"
+                                class="h-[50px] w-[50px] update1_img my-2">
+                            <div class=" flex item-center justify-center flex-col">
+                                <span
+                                    class="update1_text text-white text-[15px] w-[60px] text-center">partly-cloudy-day</span>
+                                <p class="font-[500] text-center"></p>
+                            </div>
+                        </div>
+                        <div class="h-[100%] min-w-[110px]  text-black
+                          flex flex-col items-center justify-center ">
+                            <p class="font-[300] text-white update1_time">01:00</p>
+                            <p class="text-xl text-white"><span class="update1_temp text-2xl">22</span>
+                                <sup>o</sup><span class="text-sm change font-[700]">C</span>
+                            </p>
+                            <div class="flex items-center justify-center text-sky-200 font-[700] perc1"><span
+                                    class="invisible text-sm">60%</span></div>
+                            <img src="images\2682826_bolt_light_moon_night_rain_icon.png" alt="cloudy"
+                                class="h-[50px] w-[50px] update1_img my-2">
+                            <div class=" flex item-center justify-center flex-col">
+                                <span
+                                    class="update1_text text-white text-[15px] w-[60px] text-center">partly-cloudy-day</span>
+                                <p class="font-[500] text-center"></p>
+                            </div>
+                        </div>
+                        <div class="h-[100%] min-w-[110px]  text-black
+                          flex flex-col items-center justify-center ">
+                            <p class="font-[300] text-white update1_time">01:00</p>
+                            <p class="text-xl text-white"><span class="update1_temp text-2xl">22</span>
+                                <sup>o</sup><span class="text-sm change font-[700]">C</span>
+                            </p>
+                            <div class="flex items-center justify-center text-sky-200 font-[700] perc1"><span
+                                    class="invisible text-sm">60%</span></div>
+                            <img src="images\2682826_bolt_light_moon_night_rain_icon.png" alt="cloudy"
+                                class="h-[50px] w-[50px] update1_img my-2">
+                            <div class=" flex item-center justify-center flex-col">
+                                <span
+                                    class="update1_text text-white text-[15px] w-[60px] text-center">partly-cloudy-day</span>
+                                <p class="font-[500] text-center"></p>
+                            </div>
+                        </div>
+                        <div class="h-[100%] min-w-[110px]  text-black
+                          flex flex-col items-center justify-center ">
+                            <p class="font-[300] text-white update1_time">01:00</p>
+                            <p class="text-xl text-white"><span class="update1_temp text-2xl">22</span>
+                                <sup>o</sup><span class="text-sm change font-[700]">C</span>
+                            </p>
+                            <div class="flex items-center justify-center text-sky-200 font-[700] perc1"><span
+                                    class="invisible text-sm">60%</span></div>
+                            <img src="images\2682826_bolt_light_moon_night_rain_icon.png" alt="cloudy"
+                                class="h-[50px] w-[50px] update1_img my-2">
+                            <div class=" flex item-center justify-center flex-col">
+                                <span
+                                    class="update1_text text-white text-[15px] w-[60px] text-center">partly-cloudy-day</span>
+                                <p class="font-[500] text-center"></p>
+                            </div>
+                        </div>
+                        <div class="h-[100%] min-w-[110px]  text-black
+                          flex flex-col items-center justify-center ">
+                            <p class="font-[300] text-white update1_time">01:00</p>
+                            <p class="text-xl text-white"><span class="update1_temp text-2xl">22</span>
+                                <sup>o</sup><span class="text-sm change font-[700]">C</span>
+                            </p>
+                            <div class="flex items-center justify-center text-sky-200 font-[700] perc1"><span
+                                    class="invisible text-sm">60%</span></div>
+                            <img src="images\2682826_bolt_light_moon_night_rain_icon.png" alt="cloudy"
+                                class="h-[50px] w-[50px] update1_img my-2">
+                            <div class=" flex item-center justify-center flex-col">
+                                <span
+                                    class="update1_text text-white text-[15px] w-[60px] text-center">partly-cloudy-day</span>
+                                <p class="font-[500] text-center"></p>
+                            </div>
+                        </div>
+                        <div class="h-[100%] min-w-[110px]  text-black
+                          flex flex-col items-center justify-center ">
+                            <p class="font-[300] text-white update1_time">01:00</p>
+                            <p class="text-xl text-white"><span class="update1_temp text-2xl">22</span>
+                                <sup>o</sup><span class="text-sm change font-[700]">C</span>
+                            </p>
+                            <div class="flex items-center justify-center text-sky-200 font-[700] perc1"><span
+                                    class="invisible text-sm">60%</span></div>
+                            <img src="images\2682826_bolt_light_moon_night_rain_icon.png" alt="cloudy"
+                                class="h-[50px] w-[50px] update1_img my-2">
+                            <div class=" flex item-center justify-center flex-col">
+                                <span
+                                    class="update1_text text-white text-[15px] w-[60px] text-center">partly-cloudy-day</span>
+                                <p class="font-[500] text-center"></p>
+                            </div>
+                        </div>
+                        <div class="h-[100%] min-w-[110px]  text-black
+                          flex flex-col items-center justify-center ">
+                            <p class="font-[300] text-white update1_time">01:00</p>
+                            <p class="text-xl text-white"><span class="update1_temp text-2xl">22</span>
+                                <sup>o</sup><span class="text-sm change font-[700]">C</span>
+                            </p>
+                            <div class="flex items-center justify-center text-sky-200 font-[700] perc1"><span
+                                    class="invisible text-sm">60%</span></div>
+                            <img src="images\2682826_bolt_light_moon_night_rain_icon.png" alt="cloudy"
+                                class="h-[50px] w-[50px] update1_img my-2">
+                            <div class=" flex item-center justify-center flex-col">
+                                <span
+                                    class="update1_text text-white text-[15px] w-[60px] text-center">partly-cloudy-day</span>
+                                <p class="font-[500] text-center"></p>
+                            </div>
+                        </div>
+                        <div class="h-[100%] min-w-[110px]  text-black
+                          flex flex-col items-center justify-center ">
+                            <p class="font-[300] text-white update1_time">01:00</p>
+                            <p class="text-xl text-white"><span class="update1_temp text-2xl">22</span>
+                                <sup>o</sup><span class="text-sm change font-[700]">C</span>
+                            </p>
+                            <div class="flex items-center justify-center text-sky-200 font-[700] perc1"><span
+                                    class="invisible text-sm">60%</span></div>
+                            <img src="images\2682826_bolt_light_moon_night_rain_icon.png" alt="cloudy"
+                                class="h-[50px] w-[50px] update1_img my-2">
+                            <div class=" flex item-center justify-center flex-col">
+                                <span
+                                    class="update1_text text-white text-[15px] w-[60px] text-center">partly-cloudy-day</span>
+                                <p class="font-[500] text-center"></p>
+                            </div>
+                        </div>
+                        <div class="h-[100%] min-w-[110px]  text-black
+                          flex flex-col items-center justify-center ">
+                            <p class="font-[300] text-white update1_time">01:00</p>
+                            <p class="text-xl text-white"><span class="update1_temp text-2xl">22</span>
+                                <sup>o</sup><span class="text-sm change font-[700]">C</span>
+                            </p>
+                            <div class="flex items-center justify-center text-sky-200 font-[700] perc1"><span
+                                    class="invisible text-sm">60%</span></div>
+                            <img src="images\2682826_bolt_light_moon_night_rain_icon.png" alt="cloudy"
+                                class="h-[50px] w-[50px] update1_img my-2">
+                            <div class=" flex item-center justify-center flex-col">
+                                <span
+                                    class="update1_text text-white text-[15px] w-[60px] text-center">partly-cloudy-day</span>
+                                <p class="font-[500] text-center"></p>
+                            </div>
+                        </div>
+                        <div class="h-[100%] min-w-[110px]  text-black
+                          flex flex-col items-center justify-center ">
+                            <p class="font-[300] text-white update1_time">01:00</p>
+                            <p class="text-xl text-white"><span class="update1_temp text-2xl">22</span>
+                                <sup>o</sup><span class="text-sm change font-[700]">C</span>
+                            </p>
+                            <div class="flex items-center justify-center text-sky-200 font-[700] perc1"><span
+                                    class="invisible text-sm">60%</span></div>
+                            <img src="images\2682826_bolt_light_moon_night_rain_icon.png" alt="cloudy"
+                                class="h-[50px] w-[50px] update1_img my-2">
+                            <div class=" flex item-center justify-center flex-col">
+                                <span
+                                    class="update1_text text-white text-[15px] w-[60px] text-center">partly-cloudy-day</span>
+                                <p class="font-[500] text-center"></p>
+                            </div>
+                        </div>
+                        <div class="h-[100%] min-w-[110px]  text-black
+                          flex flex-col items-center justify-center ">
+                            <p class="font-[300] text-white update1_time">01:00</p>
+                            <p class="text-xl text-white"><span class="update1_temp text-2xl">22</span>
+                                <sup>o</sup><span class="text-sm change font-[700]">C</span>
+                            </p>
+                            <div class="flex items-center justify-center text-sky-200 font-[700] perc1"><span
+                                    class="invisible text-sm">60%</span></div>
+                            <img src="images\2682826_bolt_light_moon_night_rain_icon.png" alt="cloudy"
+                                class="h-[50px] w-[50px] update1_img my-2">
+                            <div class=" flex item-center justify-center flex-col">
+                                <span
+                                    class="update1_text text-white text-[15px] w-[60px] text-center">partly-cloudy-day</span>
+                                <p class="font-[500] text-center"></p>
+                            </div>
+                        </div>
+                        <div class="h-[100%] min-w-[110px]  text-black
+                          flex flex-col items-center justify-center ">
+                            <p class="font-[300] text-white update1_time">01:00</p>
+                            <p class="text-xl text-white"><span class="update1_temp text-2xl">22</span>
+                                <sup>o</sup><span class="text-sm change font-[700]">C</span>
+                            </p>
+                            <div class="flex items-center justify-center text-sky-200 font-[700] perc1"><span
+                                    class="invisible text-sm">60%</span></div>
+                            <img src="images\2682826_bolt_light_moon_night_rain_icon.png" alt="cloudy"
+                                class="h-[50px] w-[50px] update1_img my-2">
+                            <div class=" flex item-center justify-center flex-col">
+                                <span
+                                    class="update1_text text-white text-[15px] w-[60px] text-center">partly-cloudy-day</span>
+                                <p class="font-[500] text-center"></p>
+                            </div>
+                        </div>
+                        <div class="h-[100%] min-w-[110px]  text-black
+                          flex flex-col items-center justify-center ">
+                            <p class="font-[300] text-white update1_time">01:00</p>
+                            <p class="text-xl text-white"><span class="update1_temp text-2xl">22</span>
+                                <sup>o</sup><span class="text-sm change font-[700]">C</span>
+                            </p>
+                            <div class="flex items-center justify-center text-sky-200 font-[700] perc1"><span
+                                    class="invisible text-sm">60%</span></div>
+                            <img src="images\2682826_bolt_light_moon_night_rain_icon.png" alt="cloudy"
+                                class="h-[50px] w-[50px] update1_img my-2">
+                            <div class=" flex item-center justify-center flex-col">
+                                <span
+                                    class="update1_text text-white text-[15px] w-[60px] text-center">partly-cloudy-day</span>
+                                <p class="font-[500] text-center"></p>
+                            </div>
+                        </div>
+                        <div class="h-[100%] min-w-[110px]  text-black
+                          flex flex-col items-center justify-center ">
+                            <p class="font-[300] text-white update1_time">01:00</p>
+                            <p class="text-xl text-white"><span class="update1_temp text-2xl">22</span>
+                                <sup>o</sup><span class="text-sm change font-[700]">C</span>
+                            </p>
+                            <div class="flex items-center justify-center text-sky-200 font-[700] perc1"><span
+                                    class="invisible text-sm">60%</span></div>
+                            <img src="images\2682826_bolt_light_moon_night_rain_icon.png" alt="cloudy"
+                                class="h-[50px] w-[50px] update1_img my-2">
+                            <div class=" flex item-center justify-center flex-col">
+                                <span
+                                    class="update1_text text-white text-[15px] w-[60px] text-center">partly-cloudy-day</span>
+                                <p class="font-[500] text-center"></p>
+                            </div>
+                        </div>
+                        <div class="h-[100%] min-w-[110px]  text-black
+                          flex flex-col items-center justify-center ">
+                            <p class="font-[300] text-white update1_time">01:00</p>
+                            <p class="text-xl text-white"><span class="update1_temp text-2xl">22</span>
+                                <sup>o</sup><span class="text-sm change font-[700]">C</span>
+                            </p>
+                            <div class="flex items-center justify-center text-sky-200 font-[700] perc1"><span
+                                    class="invisible text-sm">60%</span></div>
+                            <img src="images\2682826_bolt_light_moon_night_rain_icon.png" alt="cloudy"
+                                class="h-[50px] w-[50px] update1_img my-2">
+                            <div class=" flex item-center justify-center flex-col">
+                                <span
+                                    class="update1_text text-white text-[15px] w-[60px] text-center">partly-cloudy-day</span>
+                                <p class="font-[500] text-center"></p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="bg-blue-500 rounded-[40px] w-[100%] h-[248.700px] my-6 px-10">
+                    <div class="week scroller overflow-scroll w-[100%] h-[216.500] flex py-3" id="sm_scroller">
+                        <div class="min-w-[110px] min-h-[213.500px] " id="week_div1">
+                            <div class="text-black
+                          flex flex-col items-center justify-center">
+                                <p class="font-[700] text-md text-white week1_time">Mon</p>
+                                <p class="text-xl text-white"><span class="week1_temp text-2xl">22</span>
+                                    <sup>o</sup><span class="text-sm change font-[700]">C</span>
+                                </p>
+                                <div class="flex items-center justify-center text-sky-200 font-[700] week_perc1"><span
+                                        class="invisible text-sm">60%</span></div>
+                                <img src="images\2682826_bolt_light_moon_night_rain_icon.png" alt="cloudy"
+                                    class="h-[50px] w-[50px] week1_img my-2">
+                                <div class=" flex item-center justify-center flex-col">
+                                    <span class="week1_text text-white text-[15px] w-[60px] text-center"></span>
+                                    <p class="font-[500] text-center"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="min-w-[110px]  min-h-[213.500px] " id="week_div2">
+                            <div class=" text-black
+                          flex flex-col items-center justify-center">
+                                <p class="font-[700] text-md text-white week1_time">Mon</p>
+                                <p class="text-xl text-white"><span class="week1_temp text-2xl">22</span>
+                                    <sup>o</sup><span class="text-sm change font-[700]">C</span>
+                                </p>
+                                <div class="flex items-center justify-center text-sky-200 font-[700] week_perc1"><span
+                                        class="invisible text-sm">60%</span></div>
+                                <img src="images\2682826_bolt_light_moon_night_rain_icon.png" alt="cloudy"
+                                    class="h-[50px] w-[50px] week1_img my-2">
+                                <div class=" flex item-center justify-center flex-col">
+                                    <span class="week1_text text-white text-[15px] w-[60px] text-center"></span>
+                                    <p class="font-[500] text-center"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="min-w-[110px] min-h-[213.500px]" id="week_div3">
+                            <div class="text-black
+                              flex flex-col items-center justify-center">
+                                <p class="font-[700] text-md text-white week1_time">Mon</p>
+                                <p class="text-xl text-white"><span class="week1_temp text-2xl">22</span>
+                                    <sup>o</sup><span class="text-sm change font-[700]">C</span>
+                                </p>
+                                <div class="flex items-center justify-center text-sky-200 font-[700] week_perc1"><span
+                                        class="invisible text-sm">60%</span></div>
+                                <img src="images\2682826_bolt_light_moon_night_rain_icon.png" alt="cloudy"
+                                    class="h-[50px] w-[50px] week1_img my-2">
+                                <div class=" flex item-center justify-center flex-col">
+                                    <span class="week1_text text-white text-[15px] w-[60px] text-center"></span>
+                                    <p class="font-[500] text-center"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="min-w-[110px] min-h-[213.500px]" id="week_div4">
+                            <div class="text-black
+                                  flex flex-col items-center justify-center">
+                                <p class="font-[700] text-md text-white week1_time">Mon</p>
+                                <p class="text-xl text-white"><span class="week1_temp text-2xl">22</span>
+                                    <sup>o</sup><span class="text-sm change font-[700]">C</span>
+                                </p>
+                                <div class="flex items-center justify-center text-sky-200 font-[700] week_perc1"><span
+                                        class="invisible text-sm">60%</span></div>
+                                <img src="images\2682826_bolt_light_moon_night_rain_icon.png" alt="cloudy"
+                                    class="h-[50px] w-[50px] week1_img my-2">
+                                <div class=" flex item-center justify-center flex-col">
+                                    <span class="week1_text text-white text-[15px] w-[60px] text-center"></span>
+                                    <p class="font-[500] text-center"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="min-w-[110px] min-h-[213.500px]" id="week_div5">
+                            <div class="text-black
+                                      flex flex-col items-center justify-center">
+                                <p class="font-[700] text-md text-white week1_time">Mon</p>
+                                <p class="text-xl text-white"><span class="week1_temp text-2xl">22</span>
+                                    <sup>o</sup><span class="text-sm change font-[700]">C</span>
+                                </p>
+                                <div class="flex items-center justify-center text-sky-200 font-[700] week_perc1"><span
+                                        class="invisible text-sm">60%</span></div>
+                                <img src="images\2682826_bolt_light_moon_night_rain_icon.png" alt="cloudy"
+                                    class="h-[50px] w-[50px] week1_img my-2">
+                                <div class=" flex item-center justify-center flex-col">
+                                    <span class="week1_text text-white text-[15px] w-[60px] text-center"></span>
+                                    <p class="font-[500] text-center"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="min-w-[110px] min-h-[213.500px]" id="week_div6">
+                            <div class="text-black
+                                          flex flex-col items-center justify-center ">
+                                <p class="font-[700] text-md text-white week1_time">Mon</p>
+                                <p class="text-xl text-white"><span class="week1_temp text-2xl">22</span>
+                                    <sup>o</sup><span class="text-sm change font-[700]">C</span>
+                                </p>
+                                <div class="flex items-center justify-center text-sky-200 font-[700] week_perc1"><span
+                                        class="invisible text-sm">60%</span></div>
+                                <img src="images\2682826_bolt_light_moon_night_rain_icon.png" alt="cloudy"
+                                    class="h-[50px] w-[50px] week1_img my-2">
+                                <div class=" flex item-center justify-center flex-col">
+                                    <span class="week1_text text-white text-[15px] w-[60px] text-center"></span>
+                                    <p class="font-[500] text-center"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="min-w-[110px] min-h-[213.500px]" id="week_div7">
+                            <div class="text-black
+                                              flex flex-col items-center justify-center">
+                                <p class="font-[700] text-md text-white week1_time">Mon</p>
+                                <p class="text-xl text-white"><span class="week1_temp text-2xl">22</span>
+                                    <sup>o</sup><span class="text-sm change font-[700]">C</span>
+                                </p>
+                                <div class="flex items-center justify-center text-sky-200 font-[700] week_perc1"><span
+                                        class="invisible text-sm">60%</span></div>
+                                <img src="images\2682826_bolt_light_moon_night_rain_icon.png" alt="cloudy"
+                                    class="h-[50px] w-[50px] week1_img my-2">
+                                <div class=" flex item-center justify-center flex-col">
+                                    <span class="week1_text text-white text-[15px] w-[60px] text-center"></span>
+                                    <p class="font-[500] text-center"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class=" bg-blue-500 rounded-[40px] w-[100%] py-6 px-6 text-white">
+                    <div class="flex items-center justify-between px-4 py-2 text-[20px]" style="font-family:Merriweather, serif;
+                    font-weight: 300;">
+                        <div class="flex items-center"><span
+                                class="material-symbols-outlined text-2xl mr-2">humidity_mid</span><span
+                                class="text-[18px]">Humidity</span>
+                        </div>
+                        <div><span class="text-lg"><span class="humidity"></span><span> %</span></div>
+                    </div>
+                    <div class="flex items-center justify-between px-4 py-2 text-[20px]" style="font-family:Merriweather, serif;
+                    font-weight: 300;">
+                        <div class="flex items-center"><span
+                                class="material-symbols-outlined text-2xl mr-2">air</span><span
+                                class="text-[18px]">Wind</span></div>
+                        <div><span class="text-lg"><span class="wind"></span><span> km/h</span></div>
+                    </div>
+                    <div class="flex items-center justify-between px-4 py-2 text-[20px]" style="font-family:Merriweather, serif;
+                    font-weight: 300;">
+                        <div class="flex items-center"><span
+                                class="material-symbols-outlined text-2xl mr-2">rainy</span><span
+                                class="text-[18px]">Percipitation</span>
+                        </div>
+                        <div><span class="text-lg"><span class="precipitation"></span><span> mm</span></div>
+                    </div>
+                    <div class="flex items-center justify-between px-4 py-2 text-[20px]" style="font-family:Merriweather, serif;
+                    font-weight: 300;">
+                        <div class="flex items-center"><span
+                                class="material-symbols-outlined text-2xl mr-2">wb_sunny</span><span
+                                class="text-[18px]">uv index</span>
+                        </div>
+                        <div><span class="text-lg"><span class="uv_index"></span><span> medium</span></div>
+                    </div>
+                    <div class="flex items-center justify-between px-4 py-2 text-[20px]" style="font-family:Merriweather, serif;
+                    font-weight: 300;">
+                        <div class="flex items-center"><span
+                                class="material-symbols-outlined text-2xl mr-2">thermometer</span><span
+                                class="text-[18px]">feels
+                                like</span></div>
+                        <div><span class="text-lg"><span class="feel_like"></span><sup>o</sup> C</span></div>
+                    </div>
+                    <div class="flex items-center justify-between px-4 py-2 text-[20px]" style="font-family:Merriweather, serif;
+                    font-weight: 300;">
+                        <div class="flex items-center"><span
+                                class="material-symbols-outlined text-2xl mr-2">beach_access</span><span
+                                class="text-[18px]">Dew</span>
+                        </div>
+                        <div><span class="text-lg"><span class="dew"></span><span><sup>o</sup> C</span></div>
+                    </div>
+                    <div class="flex items-center justify-between px-4 py-2 text-[20px]" style="font-family:Merriweather, serif;
+                    font-weight: 300;">
+                        <div class="flex items-center"><span
+                                class="material-symbols-outlined text-2xl mr-2">visibility</span><span
+                                class="text-[18px]">visibility</span>
+                        </div>
+                        <div><span class="text-lg"><span id="visibility"></span><span> km</span></div>
+                    </div>
+
+                </div>
+                <div class="bg-blue-500 rounded-[40px] w-[100%] py-6 px-6 mt-6">
+                    <div class="flex items-center justify-between px-4 py-2 text-[20px] text-white" style="font-family:Merriweather, serif;
+                    font-weight: 300;">
+                        <div class="flex items-center"><span
+                                class="material-symbols-outlined text-2xl mr-2">light_mode</span><span
+                                class="text-[18px]">Sunrise</span>
+                        </div>
+                        <div><span class="text-lg"><span id="sunrise"></span></div>
+                    </div>
+                    <div class="flex items-center justify-between px-4 py-2 text-[20px] text-white" style="font-family:Merriweather, serif;
+                    font-weight: 300;">
+                        <div class="flex items-center"><span
+                                class="material-symbols-outlined text-2xl mr-2">light_mode</span><span
+                                class="text-[18px]">Sunset</span>
+                        </div>
+                        <div><span class="text-lg"><span id="sunset"></span></div>
+                    </div>
+                    <div class="flex items-center justify-between px-4 py-2 text-[20px] text-white" style="font-family:Merriweather, serif;
+                    font-weight: 300;">
+                        <div class="flex items-center"><span
+                                class="material-symbols-outlined text-2xl mr-2">dark_mode</span><span
+                                class="text-[18px]">Moon phase</span>
+                        </div>
+                        <div><span class="text-lg"><span id="moonphase"></span></div>
+                    </div>
+                </div>
+                <div class="flex justify-center items-center flex-col w-[80%] h-[300px] mx-auto text-white">
+                    <p class="text-center">
+                        Brings you the latest in weather trends amd climate insights
+                    </p>
+                    <div class="flex items-center justify-around my-4 w-[200px]">
+                        <div class="hover:text-black"><a target="_blank" href="https://x.com/?lang=en"><i class="fab fa-x-twitter text-2xl"></i></a></div>
+                        <div class="hover:text-blue-700 "><a target="_blank" href="https://www.facebook.com/login/"><i class="fab fa-facebook-f text-2xl"></i></a></div>
+                        <div class="hover:text-orange-500"><a target="_blank" href="https://www.google.com"><i class="fab fa-google text-2xl"></i></a></div>
+                        <div class="hover:text-pink-700 "><a target="_blank" href="https://www.instagram.com/login/"><i class="fab fa-instagram text-2xl"></i></a></div>
+                    </div>
+                    <p class="text-center">
+                        @2024 All right copyright weather forecast design
+                    </p>
+                </div>
+            </div>
+
+        </div>
+        <div class="bg-gray-200 w-[100%] h-[975px] xl:w-[90%] xl:h-[200px] mx-auto" id="upper_gray">
+        </div>
+        <div class=" w-[100%] bg-gray-200 xl:w-[90%]  xl:mx-auto" id="gray_h">
+            <div class="p-6 lg:p-0 flex items-center justify-around bg-white w-[80%] h-[300px] mx-auto rounded-[30px]"
+                style="box-shadow:0px 0px 10px rgba(128, 128, 128, 0.45);">
+                <div>
+                    <p class="text-4xl w-[400px]" style="font-family: Kanit, sans-serif; font-weight: 600;">Accurate
+                        Weather Updates <span class="text-blue-500">Every Week</span></p>
+                    <div>
+                        <input type="text" placeholder="Enter Your Email Address"
+                            class="email_input rounded-[8px] bg-gray-200 mt-4 h-[40px] w-[300px] px-4 text-black placeholder-red-500 ">
+                        <button onclick="clearinput()"
+                            class="rounded-[8px] bg-blue-400 mt-4 h-[40px] w-[100px] text-white">Subscribe</button>
+                    </div>
+                </div>
+                <div>
+                    <img src="images\6777721.webp" alt="img" class="invisible md:visible h-[200px] xl:h-[300px]">
+                </div>
+            </div>
+            <div class="flex justify-center items-center flex-col w-[100%] h-[400px] ">
+                <p>
+                    Brings you the latest in weather trends amd climate insights
+                </p>
+                <div class=" flex items-center justify-around my-4 w-[200px]">
+                    <div class="hover:bg-gray-300 py-1.5 px-2 rounded-[40px]"><a target="_blank"
+                            href="https://x.com/?lang=en"><i class="fab fa-x-twitter text-4xl"></i></a></div>
+                    <div class="hover:bg-gray-300 py-1.5 px-3.5 rounded-[40px]"><a target="_blank"
+                            href="https://www.facebook.com/login/"><i class="fab fa-facebook-f text-4xl"></i></a></div>
+                    <div class="hover:bg-gray-300 py-1.5 px-2 rounded-[40px]"><a target="_blank"
+                            href="https://www.google.com"><i class="fab fa-google text-4xl"></i></a></div>
+                    <div class="hover:bg-gray-300 py-1.5 px-2 rounded-[40px]"><a target="_blank"
+                            href="https://www.instagram.com/login/"><i class="fab fa-instagram text-4xl"></i></a></div>
+                </div>
+                <p>
+                    @2024 All right copyright weather forecast design
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+    <script src="script copy 2.js" defer></script>
+</body>
+
+</html>
